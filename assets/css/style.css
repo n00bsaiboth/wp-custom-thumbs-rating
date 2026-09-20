@@ -2,6 +2,15 @@
 /* Thumbs Ratings Styles */
 /*-----------------------------------------------------------------------------------*/
 
+.thumbs-rating-wrapper {
+	margin: 1.5em 0;
+}
+
+.thumbs-rating-title {
+	margin: 0 0 0.6em 0;
+	padding: 0;
+}
+
 .thumbs-rating-container {
 	padding: 1em 0;
 	display: flex;

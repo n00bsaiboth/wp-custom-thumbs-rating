@@ -104,11 +104,23 @@ if ( ! function_exists( 'thumbs_rating_getlink' ) ) :
 			$down_count
 		);
 
-		$out  = '<div class="thumbs-rating-container" id="thumbs-rating-' . esc_attr( $post_ID ) . '" data-content-id="' . esc_attr( $post_ID ) . '">';
-		$out .= $link_up;
-		$out .= $link_down;
-		$out .= '<span class="thumbs-rating-already-voted" aria-live="polite">' . esc_html__( 'You already voted!', 'thumbs-rating' ) . '</span>';
-		$out .= '</div>';
+        $show_title = (int) get_option( 'thumbs_rating_show_title', 1 );
+        $title_text = get_option( 'thumbs_rating_title', __( 'Did you find this article useful?', 'thumbs-rating' ) );
+
+        $title_html = '';
+        
+        if ( $show_title && $title_text !== '' ) {
+	        $title_html = '<h3 class="thumbs-rating-title">' . esc_html( $title_text ) . '</h3>';
+        }
+
+		$out  = '<div class="thumbs-rating-wrapper" data-content-id="' . esc_attr( $post_ID ) . '">';
+        $out .= $title_html;
+        $out .= '<div class="thumbs-rating-container" id="thumbs-rating-' . esc_attr( $post_ID ) . '">';
+        $out .= $link_up;
+        $out .= $link_down;
+        $out .= '<span class="thumbs-rating-already-voted" aria-live="polite">' . esc_html__( 'You already voted!', 'thumbs-rating' ) . '</span>';
+        $out .= '</div>'; // .thumbs-rating-container
+        $out .= '</div>'; // .thumbs-rating-wrapper
 
 		return $out;
 	}

@@ -33,6 +33,7 @@ require_once THUMBS_RATING_PATH . 'includes/helpers.php';
 require_once THUMBS_RATING_PATH . 'includes/enqueue.php';
 require_once THUMBS_RATING_PATH . 'includes/ajax.php';
 require_once THUMBS_RATING_PATH . 'includes/admin.php';
+require_once THUMBS_RATING_PATH . 'includes/settings.php'; 
 require_once THUMBS_RATING_PATH . 'includes/shortcodes.php';
 
 /*-----------------------------------------------------------------------------------*/
