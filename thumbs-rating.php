@@ -35,14 +35,3 @@ require_once THUMBS_RATING_PATH . 'includes/ajax.php';
 require_once THUMBS_RATING_PATH . 'includes/admin.php';
 require_once THUMBS_RATING_PATH . 'includes/settings.php'; 
 require_once THUMBS_RATING_PATH . 'includes/shortcodes.php';
-
-/*-----------------------------------------------------------------------------------*/
-/* Init / Localization */
-/*-----------------------------------------------------------------------------------*/
-
-if ( ! function_exists( 'thumbs_rating_init' ) ) :
-	function thumbs_rating_init() {
-		load_plugin_textdomain( 'thumbs-rating', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-	}
-	add_action( 'plugins_loaded', 'thumbs_rating_init' );
-endif;
