@@ -3,9 +3,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/*-----------------------------------------------------------------------------------*/
-/* SVG loader */
-/*-----------------------------------------------------------------------------------*/
+/**
+ * SVG loader
+ */
 
 if ( ! function_exists( 'thumbs_rating_get_svg' ) ) :
 	function thumbs_rating_get_svg( $filename, $class = '' ) {
@@ -57,9 +57,9 @@ if ( ! function_exists( 'thumbs_rating_get_svg' ) ) :
 endif;
 
 
-/*-----------------------------------------------------------------------------------*/
-/* Render the thumbs up/down buttons */
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Render the thumbs up/down buttons
+ */
 
 if ( ! function_exists( 'thumbs_rating_getlink' ) ) :
 	function thumbs_rating_getlink( $post_ID = 0, $type_of_vote = 0 ) {
@@ -125,9 +125,9 @@ if ( ! function_exists( 'thumbs_rating_getlink' ) ) :
 endif;
 
 
-/*-----------------------------------------------------------------------------------*/
-/* Value helpers */
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Value helpers
+ */
 
 if ( ! function_exists( 'thumbs_rating_show_up_votes' ) ) :
 	function thumbs_rating_show_up_votes( $post_id = 0 ) {

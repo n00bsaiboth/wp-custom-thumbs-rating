@@ -3,9 +3,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/*-----------------------------------------------------------------------------------*/
-/* Columns */
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Columns
+ */
 
 if ( ! function_exists( 'thumbs_rating_columns' ) ) :
 	function thumbs_rating_columns( $columns ) {
@@ -45,9 +45,9 @@ if ( ! function_exists( 'thumbs_rating_column_values' ) ) :
 	add_action( 'manage_pages_custom_column', 'thumbs_rating_column_values', 10, 2 );
 endif;
 
-/*-----------------------------------------------------------------------------------*/
-/* Sortable columns */
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Sortable columns
+ */
 
 if ( ! function_exists( 'thumbs_rating_sortable_columns' ) ) :
 	function thumbs_rating_sortable_columns( $columns ) {

@@ -16,18 +16,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/*-----------------------------------------------------------------------------------*/
-/* Constants */
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Constants
+ */
 
 define( 'THUMBS_RATING_VERSION', '3.0.0' );
 define( 'THUMBS_RATING_FILE', __FILE__ );
 define( 'THUMBS_RATING_URL', plugin_dir_url( __FILE__ ) );
 define( 'THUMBS_RATING_PATH', plugin_dir_path( __FILE__ ) );
 
-/*-----------------------------------------------------------------------------------*/
-/* Load includes (order matters: helpers first) */
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Load includes (order matters: helpers first)
+ */
 
 require_once THUMBS_RATING_PATH . 'includes/helpers.php';
 require_once THUMBS_RATING_PATH . 'includes/enqueue.php';
