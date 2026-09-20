@@ -8,16 +8,32 @@ if ( ! function_exists( 'thumbs_rating_add_vote_callback' ) ) :
 
 		check_ajax_referer( 'thumbs-rating-nonce', 'nonce' );
 
-		$post_ID = isset( $_POST['postid'] ) ? intval( $_POST['postid'] ) : 0;
+		$post_ID = isset( $_POST['postid'] ) ? absint( $_POST['postid'] ) : 0;
 		$type    = isset( $_POST['type'] ) ? sanitize_key( wp_unslash( $_POST['type'] ) ) : '';
 
 		if ( ! $post_ID || ! in_array( $type, array( 'up', 'down' ), true ) ) {
 			wp_send_json_error( array( 'message' => 'Invalid vote.' ), 400 );
 		}
 
-		if ( ! get_post( $post_ID ) ) {
-			wp_send_json_error( array( 'message' => 'Post not found.' ), 404 );
-		}
+		$post = get_post( $post_ID );
+
+        if ( ! $post ) {
+            wp_send_json_error(
+                array(
+                    'message' => __( 'Post not found.', 'thumbs-rating' ),
+                ),
+                404
+            );
+        }
+
+        if ( 'publish' !== $post->post_status || ! is_post_type_viewable( $post->post_type ) ) {
+            wp_send_json_error(
+                array(
+                    'message' => __( 'Voting is not available.', 'thumbs-rating' ),
+                ),
+                403
+            );
+        }
 
 		$meta_name = ( $type === 'up' ) ? '_thumbs_rating_up' : '_thumbs_rating_down';
 

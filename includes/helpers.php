@@ -64,7 +64,7 @@ endif;
 if ( ! function_exists( 'thumbs_rating_getlink' ) ) :
 	function thumbs_rating_getlink( $post_ID = 0, $type_of_vote = 0 ) {
 
-		$post_ID = intval( $post_ID );
+		$post_ID = absint( $post_ID );
 
 		if ( empty( $post_ID ) ) {
 			$post_ID = get_the_ID();
@@ -80,29 +80,27 @@ if ( ! function_exists( 'thumbs_rating_getlink' ) ) :
 		$up_count   = ( $up_count !== '' ) ? intval( $up_count ) : 0;
 		$down_count = ( $down_count !== '' ) ? intval( $down_count ) : 0;
 
-		$up_voted_class   = $up_count > 0 ? ' thumbs-rating-voted' : '';
-		$down_voted_class = $down_count > 0 ? ' thumbs-rating-voted' : '';
+		// $up_voted_class   = $up_count > 0 ? ' thumbs-rating-voted' : '';
+		// $down_voted_class = $down_count > 0 ? ' thumbs-rating-voted' : '';
 
 		$icon_up   = thumbs_rating_get_svg( 'thumbs-up', 'thumbs-rating-icon' );
 		$icon_down = thumbs_rating_get_svg( 'thumbs-down', 'thumbs-rating-icon' );
 
 		$link_up = sprintf(
-			'<button type="button" class="thumbs-rating-up%1$s" data-vote="up" data-post-id="%2$d" aria-label="%3$s">%4$s<span class="thumbs-rating-count">%5$d</span></button>',
-			esc_attr( $up_voted_class ),
-			$post_ID,
-			esc_attr__( 'Vote up', 'thumbs-rating' ),
-			$icon_up,
-			$up_count
-		);
+        	'<button type="button" class="thumbs-rating-up" data-vote="up" data-post-id="%1$d" aria-label="%2$s">%3$s<span class="thumbs-rating-count">%4$d</span></button>',
+	        $post_ID,
+	        esc_attr__( 'Vote up', 'thumbs-rating' ),
+	        $icon_up,
+	        $up_count
+        );
 
 		$link_down = sprintf(
-			'<button type="button" class="thumbs-rating-down%1$s" data-vote="down" data-post-id="%2$d" aria-label="%3$s">%4$s<span class="thumbs-rating-count">%5$d</span></button>',
-			esc_attr( $down_voted_class ),
-			$post_ID,
-			esc_attr__( 'Vote down', 'thumbs-rating' ),
-			$icon_down,
-			$down_count
-		);
+	        '<button type="button" class="thumbs-rating-down" data-vote="down" data-post-id="%1$d" aria-label="%2$s">%3$s<span class="thumbs-rating-count">%4$d</span></button>',
+	        $post_ID,
+	        esc_attr__( 'Vote down', 'thumbs-rating' ),
+	        $icon_down,
+	        $down_count
+        );
 
         $show_title = (int) get_option( 'thumbs_rating_show_title', 1 );
         $title_text = get_option( 'thumbs_rating_title', __( 'Did you find this article useful?', 'thumbs-rating' ) );

@@ -7,7 +7,7 @@ Author:      Ricard Torres (modernized)
 Version:     3.0.0
 Author URI:  http://php.quicoto.com/
 Text Domain: thumbs-rating
-Requires PHP: 7.4
+Requires PHP: 8.0
 License:     GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */

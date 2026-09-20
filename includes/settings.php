@@ -3,29 +3,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/*-----------------------------------------------------------------------------------*/
-/* Default values */
-/*-----------------------------------------------------------------------------------*/
-
-if ( ! function_exists( 'thumbs_rating_default_options' ) ) :
-	function thumbs_rating_default_options() {
-		return array(
-			'show_title' => 1,
-			'title'      => __( 'Did you find this article useful?', 'thumbs-rating' ),
-		);
-	}
-endif;
-
-/*-----------------------------------------------------------------------------------*/
-/* Register settings */
-/*-----------------------------------------------------------------------------------*/
-
 if ( ! function_exists( 'thumbs_rating_register_settings' ) ) :
 	function thumbs_rating_register_settings() {
 
 		register_setting(
-			'thumbs_rating_settings_group',   // option group
-			'thumbs_rating_show_title',       // option name
+			'thumbs_rating_settings_group',
+			'thumbs_rating_show_title',
 			array(
 				'type'              => 'boolean',
 				'sanitize_callback' => 'thumbs_rating_sanitize_checkbox',
@@ -43,7 +26,6 @@ if ( ! function_exists( 'thumbs_rating_register_settings' ) ) :
 			)
 		);
 
-		// Section
 		add_settings_section(
 			'thumbs_rating_main_section',
 			__( 'Button display', 'thumbs-rating' ),
@@ -51,7 +33,6 @@ if ( ! function_exists( 'thumbs_rating_register_settings' ) ) :
 			'thumbs_rating_settings_page'
 		);
 
-		// Show title toggle
 		add_settings_field(
 			'thumbs_rating_show_title',
 			__( 'Show title', 'thumbs-rating' ),
@@ -60,7 +41,6 @@ if ( ! function_exists( 'thumbs_rating_register_settings' ) ) :
 			'thumbs_rating_main_section'
 		);
 
-		// Title text
 		add_settings_field(
 			'thumbs_rating_title',
 			__( 'Title text', 'thumbs-rating' ),
@@ -69,22 +49,15 @@ if ( ! function_exists( 'thumbs_rating_register_settings' ) ) :
 			'thumbs_rating_main_section'
 		);
 	}
+
 	add_action( 'admin_init', 'thumbs_rating_register_settings' );
 endif;
-
-/*-----------------------------------------------------------------------------------*/
-/* Sanitize callbacks */
-/*-----------------------------------------------------------------------------------*/
 
 if ( ! function_exists( 'thumbs_rating_sanitize_checkbox' ) ) :
 	function thumbs_rating_sanitize_checkbox( $value ) {
 		return ( isset( $value ) && $value ) ? 1 : 0;
 	}
 endif;
-
-/*-----------------------------------------------------------------------------------*/
-/* Section + field renderers */
-/*-----------------------------------------------------------------------------------*/
 
 if ( ! function_exists( 'thumbs_rating_main_section_callback' ) ) :
 	function thumbs_rating_main_section_callback() {
@@ -94,7 +67,7 @@ endif;
 
 if ( ! function_exists( 'thumbs_rating_show_title_field' ) ) :
 	function thumbs_rating_show_title_field() {
-		$value = (int) get_option( 'thumbs_rating_show_title', 1 );
+		$value = absint( get_option( 'thumbs_rating_show_title', 1 ) );
 		?>
 		<label>
 			<input
@@ -126,10 +99,6 @@ if ( ! function_exists( 'thumbs_rating_title_field' ) ) :
 	}
 endif;
 
-/*-----------------------------------------------------------------------------------*/
-/* Add the settings page under Settings menu */
-/*-----------------------------------------------------------------------------------*/
-
 if ( ! function_exists( 'thumbs_rating_add_settings_page' ) ) :
 	function thumbs_rating_add_settings_page() {
 		add_options_page(
@@ -140,6 +109,7 @@ if ( ! function_exists( 'thumbs_rating_add_settings_page' ) ) :
 			'thumbs_rating_render_settings_page'
 		);
 	}
+
 	add_action( 'admin_menu', 'thumbs_rating_add_settings_page' );
 endif;
 
@@ -163,18 +133,17 @@ if ( ! function_exists( 'thumbs_rating_render_settings_page' ) ) :
 	}
 endif;
 
-/*-----------------------------------------------------------------------------------*/
-/* Add a Settings link on the Plugins list row */
-/*-----------------------------------------------------------------------------------*/
-
 if ( ! function_exists( 'thumbs_rating_plugin_action_links' ) ) :
 	function thumbs_rating_plugin_action_links( $links ) {
 		$url = admin_url( 'options-general.php?page=thumbs_rating_settings_page' );
+
 		array_unshift(
 			$links,
 			'<a href="' . esc_url( $url ) . '">' . esc_html__( 'Settings', 'thumbs-rating' ) . '</a>'
 		);
+
 		return $links;
 	}
+
 	add_filter( 'plugin_action_links_' . plugin_basename( THUMBS_RATING_FILE ), 'thumbs_rating_plugin_action_links' );
 endif;

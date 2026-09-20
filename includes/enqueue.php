@@ -8,7 +8,7 @@ if ( ! function_exists( 'thumbs_rating_scripts' ) ) :
 		wp_enqueue_script(
 			'thumbs_rating_scripts',
 			THUMBS_RATING_URL . 'assets/js/general.js',
-			array( 'jquery' ),
+			array(),
 			THUMBS_RATING_VERSION,
 			true
 		);

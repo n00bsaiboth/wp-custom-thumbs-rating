@@ -3,20 +3,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/*-----------------------------------------------------------------------------------*/
-/* [thumbs-rating-buttons] */
-/*-----------------------------------------------------------------------------------*/
-
 if ( ! function_exists( 'thumbs_rating_shortcode_func' ) ) :
 	function thumbs_rating_shortcode_func( $atts ) {
 		return thumbs_rating_getlink();
 	}
+
 	add_shortcode( 'thumbs-rating-buttons', 'thumbs_rating_shortcode_func' );
 endif;
-
-/*-----------------------------------------------------------------------------------*/
-/* [thumbs_rating_top] */
-/*-----------------------------------------------------------------------------------*/
 
 if ( ! function_exists( 'thumbs_rating_top_func' ) ) :
 	function thumbs_rating_top_func( $atts ) {
@@ -34,12 +27,12 @@ if ( ! function_exists( 'thumbs_rating_top_func' ) ) :
 			'thumbs_rating_top'
 		);
 
-		$type           = $atts['type'];
-		$posts_per_page = intval( $atts['posts_per_page'] );
-		$category       = $atts['category'];
-		$show_votes     = $atts['show_votes'];
-		$post_type      = $atts['post_type'];
-		$show_both      = $atts['show_both'];
+		$type           = ( 'negative' === strtolower( $atts['type'] ) ) ? 'negative' : 'positive';
+		$posts_per_page = max( 1, absint( $atts['posts_per_page'] ) );
+		$category       = absint( $atts['category'] );
+		$show_votes     = strtolower( $atts['show_votes'] );
+		$post_type      = sanitize_key( $atts['post_type'] );
+		$show_both      = strtolower( $atts['show_both'] );
 
 		if ( 'positive' === $type ) {
 			$meta_key       = '_thumbs_rating_up';
@@ -81,14 +74,12 @@ if ( ! function_exists( 'thumbs_rating_top_func' ) ) :
 
 				if ( 'yes' === $show_votes ) {
 
-					$meta_values = get_post_meta( get_the_ID(), $meta_key );
-					$count       = ( is_array( $meta_values ) && isset( $meta_values[0] ) ) ? intval( $meta_values[0] ) : 0;
+					$count = absint( get_post_meta( get_the_ID(), $meta_key, true ) );
 
 					$return .= ' (' . esc_html( $sign . $count );
 
 					if ( 'yes' === $show_both ) {
-						$other_values = get_post_meta( get_the_ID(), $other_meta_key );
-						$other_count  = ( is_array( $other_values ) && isset( $other_values[0] ) ) ? intval( $other_values[0] ) : 0;
+						$other_count = absint( get_post_meta( get_the_ID(), $other_meta_key, true ) );
 						$return      .= ' ' . esc_html( $other_sign . $other_count );
 					}
 
@@ -99,11 +90,13 @@ if ( ! function_exists( 'thumbs_rating_top_func' ) ) :
 			}
 
 			$return .= '</ol>';
+
 			wp_reset_postdata();
 
 		endif;
 
 		return $return;
 	}
+
 	add_shortcode( 'thumbs_rating_top', 'thumbs_rating_top_func' );
 endif;
